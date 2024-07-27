@@ -1,22 +1,11 @@
 import { Router } from "express";
-import {
-  createUser,
-  deleteUser,
-  getUserById,
-  getUsers,
-  updateUser,
-} from "../controllers/users.controller.js";
+import { registerUser } from "../controllers/users.controller.js";
 
-const router = Router();
+const routerUsers = Router();
 
-router.get("/users", getUsers);
+routerUsers.post("/register", registerUser);
+routerUsers.post("/login", (req, res) => {
+  res.json({ message: "Login" });
+});
 
-router.get("/users/:id", getUserById);
-
-router.post("/users", createUser);
-
-router.delete("/users/:id", deleteUser);
-
-router.put("/users/:id", updateUser);
-
-export default router;
+export default routerUsers;
