@@ -1,9 +1,15 @@
 import { Router } from "express";
-import { registerUser } from "../controllers/users.controller.js";
+import {
+  createUser,
+  getUserById,
+  getUsers,
+} from "../controllers/users.controller.js";
 
 const routerUsers = Router();
 
-routerUsers.post("/register", registerUser);
+routerUsers.get("/users", getUsers);
+routerUsers.get("/users/:id", getUserById);
+routerUsers.post("/register", createUser);
 routerUsers.post("/login", (req, res) => {
   res.json({ message: "Login" });
 });
