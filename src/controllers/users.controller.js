@@ -23,7 +23,7 @@ export const getUserByUsername = async (user) => {
     user,
   ]);
 
-  if (rows.length === 0) return { message: "User not found" };
+  if (rows.length === 0) throw new Error("User not found");
 
   return rows[0];
 };
