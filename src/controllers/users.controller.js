@@ -18,6 +18,16 @@ export const getUserById = async (req, res) => {
   return res.status(200).json(rows[0]);
 };
 
+export const getUserByUsername = async (user) => {
+  const { rows } = await pool.query("SELECT * FROM users WHERE user_name=$1", [
+    user,
+  ]);
+
+  if (rows.length === 0) return { message: "User not found" };
+
+  return rows[0];
+};
+
 export const createUser = async (req, res) => {
   try {
     const data = req.body;
@@ -39,7 +49,6 @@ export const createUser = async (req, res) => {
         .status(409)
         .json({ code: severity + " " + code, detail: detail });
     }
-    console.log(err.message);
     return res.status(500).json({ message: "Internal server error!!!" });
   }
 };
