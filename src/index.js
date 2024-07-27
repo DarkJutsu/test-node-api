@@ -6,7 +6,9 @@ import routerAuth from "./routes/auth.routes.js";
 
 const app = express();
 
+app.set("view engine", "ejs");
 app.use(express.json());
+
 app.use(routerUsuarios);
 app.use(routerUsers);
 app.use(routerAuth);
