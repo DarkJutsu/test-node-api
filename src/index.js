@@ -1,4 +1,4 @@
-import express, { json } from "express";
+import express from "express";
 import { PORT } from "./config.js";
 import routerUsuarios from "./routes/usuarios.routes.js";
 import routerUsers from "./routes/users.routes.js";
