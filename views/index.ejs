@@ -103,7 +103,11 @@
           <label for="r-password">Password</label>
           <input type="password" name="password" id="r-password" required />
           <label for="r-c-password">Confirm Password</label>
-          <input type="password" name="c-password" id="r-c-password" required />
+          <input
+            type="password"
+            name="r-c-password"
+            id="r-c-password"
+            required />
           <button type="submit">REGISTER</button>
           <span>&nbsp;</span>
         </form>
@@ -122,7 +126,7 @@
 
       loginForm?.addEventListener("submit", (e) => {
         e.preventDefault();
-        const username = $("#l-username").value;
+        const user = $("#l-username").value;
         const password = $("#l-password").value;
 
         fetch("/login", {
@@ -130,7 +134,7 @@
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ username, password }),
+          body: JSON.stringify({ user, password }),
         }).then((res) => {
           if (res.ok) {
             loginSpan.innerText = "Session iniciadad... Entrando...";
@@ -147,8 +151,8 @@
 
       registerForm?.addEventListener("submit", (e) => {
         e.preventDefault();
-        const username = $("#l-username").value;
-        const password = $("#l-password").value;
+        const user = $("#r-username").value;
+        const password = $("#r-password").value;
         const cPassword = $("#r-c-password").value;
 
         if (password != cPassword) {
@@ -156,12 +160,12 @@
           return;
         }
 
-        fetch("/login", {
+        fetch("/register", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ username, password }),
+          body: JSON.stringify({ user, password }),
         }).then((res) => {
           if (res.ok) {
             registerSpan.innerText = "Usuario registrado... Entrando...";
