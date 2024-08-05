@@ -20,6 +20,10 @@ export const login = async (req, res) => {
 
     return res.json(publicUser);
   } catch (err) {
-    return res.send(err.message);
+    if (err.message === "User not found")
+      return res.status(404).json({ message: err.message });
+    if (err.message === "Password is invalid!!!")
+      return res.status(409).json({ message: err.message });
+    return res.status(500).json({ message: err.message });
   }
 };
