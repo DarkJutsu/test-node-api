@@ -1,6 +1,8 @@
+import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
 import { Validations } from "../utils/Validations.js";
 import { getUserByUsername } from "./users.controller.js";
-import bcrypt from "bcrypt";
+import { SECRET_JWT_KEY } from "../config.js";
 
 export const login = async (req, res) => {
   try {
@@ -18,7 +20,9 @@ export const login = async (req, res) => {
       username: getUser.user_name,
     };
 
-    return res.json(publicUser);
+    const token = jwt.sign(publicUser, SECRET_JWT_KEY, { expiresIn: "1h" });
+
+    return res.json({ publicUser, token });
   } catch (err) {
     if (err.message === "User not found")
       return res.status(404).json({ message: err.message });
