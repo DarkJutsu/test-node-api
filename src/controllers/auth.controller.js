@@ -22,7 +22,14 @@ export const login = async (req, res) => {
 
     const token = jwt.sign(publicUser, SECRET_JWT_KEY, { expiresIn: "1h" });
 
-    return res.json({ publicUser, token });
+    return res
+      .cookie("access_token", token, {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === "production",
+        sameSite: "strict",
+        maxAge: 1000 * 60 * 60,
+      })
+      .json({ publicUser });
   } catch (err) {
     if (err.message === "User not found")
       return res.status(404).json({ message: err.message });
